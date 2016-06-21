@@ -45,11 +45,11 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(2);
-	var Hello_1 = __webpack_require__(3);
-	ReactDOM.render(React.createElement(Hello_1.Hello, {compiler: "TypeScript", framework: "React"}), document.getElementById("example"));
-
+	
+	const React = __webpack_require__(1);
+	const ReactDOM = __webpack_require__(2);
+	const Hello_1 = __webpack_require__(3);
+	ReactDOM.render(React.createElement(Hello_1.Hello, { compiler: "TypeScript", framework: "React" }), document.getElementById("example"));
 
 /***/ },
 /* 1 */
@@ -67,26 +67,17 @@
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/// <reference path="../../typings/index.d.ts" />
 	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var React = __webpack_require__(1);
-	var Hello = (function (_super) {
-	    __extends(Hello, _super);
-	    function Hello() {
-	        _super.apply(this, arguments);
-	    }
-	    Hello.prototype.render = function () {
+	
+	const React = __webpack_require__(1);
+	class Hello extends React.Component {
+	    render() {
 	        return React.createElement("h1", null, "Hello from ", this.props.compiler, " and ", this.props.framework, "!");
-	    };
-	    return Hello;
-	}(React.Component));
+	    }
+	}
 	exports.Hello = Hello;
-
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
+//# sourceMappingURL=client.bundle.js.map

@@ -1,4 +1,6 @@
-﻿import * as React from "react";
+﻿/// <reference path="../../typings/index.d.ts" />
+ 
+import * as React from "react";
 
 export interface HelloProps { compiler: string; framework: string; }
 

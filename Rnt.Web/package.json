@@ -3,13 +3,19 @@
   "version": "0.0.0",
   "private": true,
   "devDependencies": {
+    "babel-core": "^6.9.1",
+    "babel-loader": "^6.2.4",
+    "expose-loader": "^0.7.1",
     "gulp": "3.8.11",
     "gulp-concat": "2.5.2",
     "gulp-cssmin": "0.1.7",
     "gulp-uglify": "1.2.0",
+    "jsx-loader": "^0.13.2",
     "rimraf": "2.2.8",
     "source-map-loader": "^0.1.5",
-    "ts-loader": "^0.8.2"
+    "ts-loader": "^0.8.2",
+    "typescript": "^1.8.10",
+    "webpack": "^1.13.1"
   },
   "dependencies": {
     "react": "^15.1.0",

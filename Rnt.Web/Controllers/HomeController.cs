@@ -9,6 +9,7 @@ namespace Rnt.Web.Controllers
     [Route("/[action]")]
     public class HomeController : Controller
     {
+        [Route("/")]
         public IActionResult Index()
         {
             return View();

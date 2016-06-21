@@ -99,8 +99,10 @@ namespace Rnt.Web
                 // ReactJS.NET's version of Babel and loading the pre-transpiled
                 // scripts. Example:
                 config
+                    // .SetAllowMsieEngine(true)
+                    .SetStartEngines(3)
                     .SetLoadBabel(false)
-                    .AddScriptWithoutTransform("~/wwwroot/bundle.server.js");
+                    .AddScriptWithoutTransform("~/server.bundle.js");
             });
 
             app.UseStaticFiles();
