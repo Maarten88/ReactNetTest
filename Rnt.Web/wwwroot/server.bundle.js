@@ -66,8 +66,21 @@
 	
 	const React = __webpack_require__(1);
 	class Hello extends React.Component {
+	    constructor(props) {
+	        super(props);
+	        this.getFromApi = () => {
+	            var xhr = new XMLHttpRequest();
+	            xhr.open('get', '/apicall', true);
+	            xhr.onload = () => {
+	                var data = JSON.parse(xhr.responseText);
+	                this.setState({ data: data });
+	            };
+	            xhr.send();
+	        };
+	        this.state = { data: this.props.initialData };
+	    }
 	    render() {
-	        return React.createElement("h1", null, "Hello from ", this.props.compiler, " and ", this.props.framework, "!");
+	        return React.createElement("div", null, React.createElement("h1", null, "Hello from ", this.props.compiler, " and ", this.props.framework, "!"), React.createElement("br", null), React.createElement("p", null, JSON.stringify(this.state.data)), React.createElement("button", { onClick: this.getFromApi }, "Get Data From API"));
 	    }
 	}
 	exports.Hello = Hello;

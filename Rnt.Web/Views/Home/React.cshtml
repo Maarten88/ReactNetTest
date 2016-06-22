@@ -1,16 +1,12 @@
-﻿@{
+﻿@model dynamic
+@{
     ViewData["Title"] = "React Test Page";
 }
 
-<div id="example"></div>
+@Html.React("Components.Hello", new { initialData = Model, compiler = "TypeScript", framework = "React" })
 
-@Html.React("Components.Hello", new { compiler = "TypeScript", framework = "React" })
-
-<!-- Dependencies -->
-@*<script src="./node_modules/react/dist/react.js"></script>
-<script src="./node_modules/react-dom/dist/react-dom.js"></script>*@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js"></script>
+<script src="~/components.js"></script>
 
-<!-- Main -->
-@*<script src="./bundle.js"></script>*@
+@Html.ReactInitJavaScript()

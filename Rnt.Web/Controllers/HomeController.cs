@@ -9,6 +9,8 @@ namespace Rnt.Web.Controllers
     [Route("/[action]")]
     public class HomeController : Controller
     {
+        static int count = 0;
+
         [Route("/")]
         public IActionResult Index()
         {
@@ -17,7 +19,12 @@ namespace Rnt.Web.Controllers
 
         public IActionResult React()
         {
-            return View();
+            return View(new { modelData = ++count, stringData = "initialData from Controller" });
+        }
+
+        public IActionResult ApiCall()
+        {
+            return Json(new { modelData = ++count, stringData = "ApiCall data from Controller" });
         }
 
         public IActionResult About()

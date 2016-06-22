@@ -100,9 +100,10 @@ namespace Rnt.Web
                 // scripts. Example:
                 config
                     // .SetAllowMsieEngine(true)
-                    .SetStartEngines(3)
+                    // .SetStartEngines(3)
+                    // .SetReuseJavaScriptEngines(true)
                     .SetLoadBabel(false)
-                    .AddScriptWithoutTransform("~/server.bundle.js");
+                    .AddScriptWithoutTransform("~/components.js");
             });
 
             app.UseStaticFiles();

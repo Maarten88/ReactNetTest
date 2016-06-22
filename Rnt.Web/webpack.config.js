@@ -1,10 +1,7 @@
 ﻿module.exports = {
-    entry: {
-        server: "./Scripts/server.js",
-        client: "./Scripts/client.tsx"
-    },
+    entry: "./Scripts/expose.js",
     output: {
-        filename: "./wwwroot/[name].bundle.js",
+        filename: "./wwwroot/components.js",
     },
 
     // Enable sourcemaps for debugging webpack's output.

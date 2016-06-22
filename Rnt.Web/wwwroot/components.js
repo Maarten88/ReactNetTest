@@ -44,33 +44,40 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	// Content/server.js
 	
-	const React = __webpack_require__(1);
-	const ReactDOM = __webpack_require__(2);
-	const Hello_1 = __webpack_require__(3);
-	ReactDOM.render(React.createElement(Hello_1.Hello, { compiler: "TypeScript", framework: "React" }), document.getElementById("example"));
+	// All JavaScript in here will be loaded server-side
+	// Expose components globally so ReactJS.NET can use them
+	var Components = __webpack_require__(1);
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = React;
+	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Components"] = __webpack_require__(2);
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = ReactDOM;
+	//module.exports = {
+	//    // All the components you'd like to render server-side
+	//    Hello: require('./Hello')
+	//};
+	"use strict";
+	
+	var Hello_1 = __webpack_require__(3);
+	exports.Hello = Hello_1.Hello;
 
 /***/ },
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/// <reference path="../../typings/index.d.ts" />
+	/* WEBPACK VAR INJECTION */(function(global) {/// <reference path="../../typings/index.d.ts" />
 	"use strict";
 	
-	const React = __webpack_require__(1);
+	const React = __webpack_require__(4);
 	class Hello extends React.Component {
 	    constructor(props) {
 	        super(props);
@@ -86,11 +93,31 @@
 	        this.state = { data: this.props.initialData };
 	    }
 	    render() {
-	        return React.createElement("div", null, React.createElement("h1", null, "Hello from ", this.props.compiler, " and ", this.props.framework, "!"), React.createElement("br", null), React.createElement("p", null, JSON.stringify(this.state.data)), React.createElement("button", { onClick: this.getFromApi }, "Get Data From API"));
+	        var objectsLeaked;
+	        // Make memory leak serverside
+	        if (typeof window === 'undefined') {
+	            if (!global.leak) {
+	                global.leak = new Array();
+	            }
+	            var fill = new Array();
+	            for (var j = 0; j < 100000; j++) fill.push(j);
+	            global.leak.push(fill);
+	            objectsLeaked = global.leak.length;
+	        } else {
+	            objectsLeaked = 0;
+	        }
+	        return React.createElement("div", null, React.createElement("h1", null, "Hello from ", this.props.compiler, " and ", this.props.framework, "!"), React.createElement("br", null), React.createElement("p", null, JSON.stringify(this.state.data)), React.createElement("button", { onClick: this.getFromApi }, "Get Data From API"), React.createElement("p", null, "(leaked ", objectsLeaked, " objects)"));
 	    }
 	}
 	exports.Hello = Hello;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	module.exports = React;
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=client.bundle.js.map
+//# sourceMappingURL=components.js.map
