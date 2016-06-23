@@ -1,12 +1,22 @@
-﻿@model dynamic
+﻿@model Rnt.Web.Controllers.ReactModel
 @{
     ViewData["Title"] = "React Test Page";
+
+    string cacheKey = Model.modelData.ToString() + (string)Model.stringData;
 }
 
-@Html.React("Components.Hello", new { initialData = Model, compiler = "TypeScript", framework = "React" })
+<cache expires-after="@TimeSpan.FromMinutes(1)">
+    @Html.React("Components.Hello", new { initialData = Model, compiler = "TypeScript", framework = "React" })
+</cache>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js"></script>
 <script src="~/components.js"></script>
 
-@Html.ReactInitJavaScript()
+@*<cache expires-after="@TimeSpan.FromMinutes(1)">
+    @Html.ReactInitJavaScript()
+</cache>*@
+
+@*<cache expires-after="@TimeSpan.FromMinutes(1)" vary-by="@cacheKey">
+    @Html.ReactWithInit("Components.Hello", new { initialData = Model, compiler = "TypeScript", framework = "React" }, null, null, false)
+</cache>*@

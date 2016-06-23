@@ -31,7 +31,7 @@ namespace Rnt.Web
                 builder.AddUserSecrets();
 
                 // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
-                builder.AddApplicationInsightsSettings(developerMode: true);
+                // builder.AddApplicationInsightsSettings(developerMode: true);
             }
 
             builder.AddEnvironmentVariables();
@@ -44,7 +44,9 @@ namespace Rnt.Web
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddApplicationInsightsTelemetry(Configuration);
+            // services.AddApplicationInsightsTelemetry(Configuration);
+
+            services.AddMemoryCache();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -68,7 +70,7 @@ namespace Rnt.Web
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseApplicationInsightsRequestTelemetry();
+            // app.UseApplicationInsightsRequestTelemetry();
 
             if (env.IsDevelopment())
             {
@@ -81,7 +83,7 @@ namespace Rnt.Web
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseApplicationInsightsExceptionTelemetry();
+            // app.UseApplicationInsightsExceptionTelemetry();
 
             // Initialise ReactJS.NET. Must be before static files.
             app.UseReact(config =>
@@ -101,7 +103,7 @@ namespace Rnt.Web
                 config
                     // .SetAllowMsieEngine(true)
                     // .SetStartEngines(3)
-                    // .SetReuseJavaScriptEngines(true)
+                    .SetReuseJavaScriptEngines(false)
                     .SetLoadBabel(false)
                     .AddScriptWithoutTransform("~/components.js");
             });

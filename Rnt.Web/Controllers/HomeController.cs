@@ -3,12 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Rnt.Web.Controllers
 {
+    public class ReactModel
+    {
+        public int modelData { get; set; }
+        public string stringData { get; set; }
+    }
+
     [Route("/[action]")]
     public class HomeController : Controller
     {
+        IMemoryCache memoryCache;
+        public HomeController(IMemoryCache memoryCache)
+        {
+            this.memoryCache = memoryCache;
+        }
+
         static int count = 0;
 
         [Route("/")]
@@ -19,12 +32,12 @@ namespace Rnt.Web.Controllers
 
         public IActionResult React()
         {
-            return View(new { modelData = ++count, stringData = "initialData from Controller" });
+            return View(new ReactModel { modelData = ++count, stringData = "initialData from Controller" });
         }
 
         public IActionResult ApiCall()
         {
-            return Json(new { modelData = ++count, stringData = "ApiCall data from Controller" });
+            return Json(new ReactModel { modelData = ++count, stringData = "ApiCall data from Controller" });
         }
 
         public IActionResult About()
